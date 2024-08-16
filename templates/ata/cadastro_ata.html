@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cadastro de Atas</title>
+</head>
+
+<body>
+    <h1>Cadastro de Atas</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+
+</html>
+{% endblock content %}

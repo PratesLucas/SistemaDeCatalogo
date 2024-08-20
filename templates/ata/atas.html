@@ -18,140 +18,43 @@
 
 <body>
 
-</body>
-{% include '_base.html' %}
-<!--
-            <div
-                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-              >
-                <div
-                  class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500"
-                >
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <p
-                    class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-                  >
-                    Relatório
-                  </p>
-                  <p
-                    class="text-lg font-semibold text-gray-700 dark:text-gray-200"
-                  >
-                    2024
-                  </p>
-                </div>
-              </div>   
+  {% include '_base.html' %}
+  <p class="mb-2 text-2xl font-medium text-gray-600 dark:text-gray-400">
+    Listagem de Atas
+  </p>
 
-
-              <div
-                class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
-              >
-                <div
-                  class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500"
-                >
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
-                    ></path>
-                  </svg>
-                </div>
-                <div>
-                  <p
-                    class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
-                  >
-                    Relatório
-                  </p>
-                  <p
-                    class="text-lg font-semibold text-gray-700 dark:text-gray-200"
-                  >
-                    2023
-                  </p>
-                </div>
-              </div> -->
-<p class="mb-2 text-2xl font-medium text-gray-600 dark:text-gray-400">
-  Listagem de Atas
-</p>
-
-<div class="w-full overflow-hidden rounded-lg shadow-xs">
-  <div class="w-full overflow-x-auto">
-    <table class="w-full whitespace-no-wrap">
-      <thead>
-        <tr
-          class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <th class="px-4 py-3">Ano</th>
-          <th class="px-4 py-3">Série</th>
-          <th class="px-4 py-3">Turma</th>
-          <th class="px-4 py-3">PDF</th>
-        </tr>
-      </thead>
-      <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        {% for ata in atas %}
-        <tr class="text-gray-700 dark:text-gray-400">
-          <td class="px-4 py-3 text-sm">{{ ata.ano }}</td>
-          <td class="px-4 py-3 text-sm">{{ ata.serie }}</td>
-          <td class="px-4 py-3 text-sm">{{ ata.turma }}</td>
-          <td class="px-4 py-3 text-sm">
-            {% if ata.pdf %}
-            <a href="{{ ata.pdf.url }}" target="_blank" class="text-blue-500 hover:underline">Ver PDF</a>
+  <div class="w-full p-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {% for ata in atas %}
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-64">
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">{{ ata.ano }} - {{ ata.serie }} - {{ ata.turma }}</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            {% if ata.pdf_url %}
+            <a href="{{ ata.pdf_url }}" target="_blank" class="text-blue-500 hover:underline">Ver PDF</a>
             {% else %}
             Não disponível
             {% endif %}
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <a href="{% url 'details' pessoa.id %}">
-              <button
-                class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-                Detalhar
-              </button>
-            </a>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <a href="{% url 'edit' pessoa.id %}">
-              <button
-                class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-                Editar
-              </button>
-            </a>
-          </td>
-          <td class="px-4 py-3 text-sm">
-            <a href="{% url 'remove' pessoa.id %}">
-              <button
-                class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-700 hover:bg-red-800 focus:outline-none focus:shadow-outline-red">
-                Excluir
-              </button>
-            </a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+          </p>
+        </div>
+        <div class="flex justify-between mt-auto">
+          <a href="{% url 'edit_ata' ata.id %}">
+            <button
+              class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+              Editar
+            </button>
+          </a>
+          <a href="{% url 'remove_ata' ata.id %}">
+            <button
+              class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-700 hover:bg-red-800 focus:outline-none focus:shadow-outline-red">
+              Excluir
+            </button>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
-</div>
-<!--               
-<table>
-  <thead>
-    <tr>
-      <th>Ano</th>
-      <th>Série</th>
-      <th>Turma</th>
-      <th>PDF</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for ata in atas %}
-    <tr>
-      <td>{{ ata.ano }}</td>
-      <td>{{ ata.serie }}</td>
-      <td>{{ ata.turma }}</td>
-      <td><a href="{{ ata.pdf.url }}">Ver PDF</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+</body>
 
-</html> -->
+</html>

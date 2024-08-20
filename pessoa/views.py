@@ -17,10 +17,7 @@ def index(request):
     else:
         pessoas = Pessoa.objects.all()
 
-    template = loader.get_template("_base.html")
-    context = {'pessoas' : pessoas}
-
-    return HttpResponse(template.render(context, request))
+    return render(request, 'pessoa/listagem.html', {'pessoas': pessoas})
 
 @login_required
 def details(request, pessoa_id):

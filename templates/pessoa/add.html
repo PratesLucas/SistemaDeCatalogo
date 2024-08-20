@@ -28,7 +28,7 @@
       <h1>CADASTRO</h1>
       <form action="/add/" method="post">
         {% csrf_token %}
-        {% crispy form %}
+        {{ form|crispy }}
         <input type="submit" value="Salvar">
       </form>
 

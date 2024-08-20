@@ -1,6 +1,4 @@
-{% extends '_base.html' %}
 {% load static %}
-{% block content %}
 {% load crispy_forms_tags %}
 
 <!DOCTYPE html>
@@ -11,13 +9,18 @@
 </head>
 
 <body>
-    <h1>Cadastro de Atas</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit">Salvar</button>
-    </form>
+    {% include '_base.html' %}
+    <div class="right-login">
+        <div class="card-login">
+            <h1>Cadastro de Atas</h1>
+            <form action="{% url 'cadastro_ata' %}" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" value="Salvar">
+            </form>
+
+        </div>
+    </div>
 </body>
 
 </html>
-{% endblock content %}

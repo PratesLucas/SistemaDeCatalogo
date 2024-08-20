@@ -437,7 +437,7 @@
                       </a>
                     </td>
                     <td class="px-4 py-3 text-sm">
-                      <a href="{% url 'edit' pessoa.id %}">
+                      <a href="{% url 'refresh' pessoa.id %}">
                         <button
                           class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
                           Editar
@@ -445,7 +445,7 @@
                       </a>
                     </td>
                     <td class="px-4 py-3 text-sm">
-                      <a href="{% url 'remove' pessoa.id %}">
+                      <a href="{% url 'delete' pessoa.id %}">
                         <button
                           class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-md active:bg-red-700 hover:bg-red-800 focus:outline-none focus:shadow-outline-red">
                           Excluir

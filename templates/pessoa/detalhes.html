@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes de usuário</title>
+</head>
+<body>
+    {% block content %}
+    <div>
+        <div>
+            <h3>Detalhes de {{pessoa.nome}}</h3>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-primary">ID: {{pessoa.id}}</li>
+                <li class="list-group-item list-group-item-primary">NOME: {{pessoa.nome}}</li>
+                <li class="list-group-item list-group-item-primary">CPF: {{pessoa.cpf}}</li>
+                <li class="list-group-item list-group-item-primary">RG: {{pessoa.rg}}</li> <br>
+                <a href="/pessoa/"><button class="btn btn-primary">Voltar</button></a>
+            </ul>  
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

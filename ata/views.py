@@ -7,18 +7,13 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def atas_view(request):
-    if request.GET:
-        dic = {}
-        for chave, valor in request.GET.lists():
-            dic.update({chave + "__contains": valor[0]})
-        atas = Atas.objects.all().filter(**dic)
-    else:
-        atas = Atas.objects.all()
-
-    template = loader.get_template('ata/atas.html')
-    context = {'atas': atas}
-
-    return HttpResponse(template.render(context, request))
+    atas = Atas.objects.all()
+    for ata in atas:
+        if not ata.pdf or not ata.pdf.name:
+            ata.pdf_url = None
+        else:
+            ata.pdf_url = ata.pdf.url
+    return render(request, 'ata/atas.html', {'atas': atas})
 
 @login_required
 def cadastro_ata_view(request):
@@ -29,7 +24,7 @@ def cadastro_ata_view(request):
         if form.is_valid():
             form.save()
 
-            return HttpResponseRedirect('/ata/')
+            return HttpResponseRedirect('/ata/atas/')
     else:
         form = AtasForm()
     
@@ -37,3 +32,31 @@ def cadastro_ata_view(request):
     context = {'form': form}
 
     return HttpResponse(template.render(context, request))
+
+@login_required
+def edit_ata_view(request, ata_id):
+
+    ata = Atas.objects.get(pk = ata_id)
+
+    if request.method == "POST":
+        form = AtasForm(request.POST, instance=ata)
+
+        if form.is_valid():
+            form.save()
+
+            return HttpResponseRedirect('/ata/atas/')
+    else:
+        form = AtasForm(instance=ata)
+
+    template = loader.get_template('ata/cadastro_ata.html')
+    context = {'form': form}
+
+    return HttpResponse(template.render(context, request))
+
+@login_required
+def remove_ata_view(request, ata_id):
+
+    ata = Atas.objects.get(pk = ata_id)
+    ata.delete()
+
+    return HttpResponseRedirect('/ata/atas/')

@@ -36,7 +36,7 @@ def cadastro_ata_view(request):
 @login_required
 def edit_ata_view(request, ata_id):
 
-    ata = Atas.objects.get(pk = ata_id)
+    ata = Atas.objects.get(pk=ata_id)
 
     if request.method == "POST":
         form = AtasForm(request.POST, instance=ata)
@@ -48,10 +48,8 @@ def edit_ata_view(request, ata_id):
     else:
         form = AtasForm(instance=ata)
 
-    template = loader.get_template('ata/cadastro_ata.html')
-    context = {'form': form}
+    return render(request, 'ata/cadastro_ata.html', {'form': form})
 
-    return HttpResponse(template.render(context, request))
 
 @login_required
 def remove_ata_view(request, ata_id):

@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+
+{% block content %}
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+        Arquivos da Ata: {{ ata.ano }} - {{ ata.serie }} - {{ ata.turma }}
+    </h1>
+
+    {% if pdfs %}
+    <ul class="list-disc list-inside">
+        {% for pdf in pdfs %}
+        <li>
+            <a href="{{ pdf.pdf.url }}" target="_blank" class="text-blue-500 hover:underline">
+                PDF {{ forloop.counter }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-gray-600 dark:text-gray-400">Nenhum arquivo PDF disponível para esta ata.</p>
+    {% endif %}
+
+    <form action="{% url 'upload_arquivo_pdf' ata.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mt-4">
+            <input type="file" name="pdf" class="form-input mt-1 block w-full" />
+            <button type="submit" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue mt-2">
+                Adicionar PDF
+            </button>
+        </div>
+    </form>
+
+    <a href="{% url 'pagina_inicial' %}" class="text-blue-500 hover:underline mt-4 block">
+        Voltar para a lista de atas
+    </a>
+</div>
+{% endblock %}

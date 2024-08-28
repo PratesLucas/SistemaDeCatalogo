@@ -8,3 +8,10 @@ class Atas(models.Model):
 
     def __str__(self):
         return f"Ata {self.ano} - {self.serie} - {self.turma}"
+
+class ArquivoPDF(models.Model):
+    ata = models.ForeignKey(Atas, related_name='pdfs', on_delete=models.CASCADE)
+    pdf = models.FileField(upload_to='path_to_save_pdfs/')
+
+    def __str__(self):
+        return f"PDF {self.ata.ano} - {self.ata.serie} - {self.ata.turma}"

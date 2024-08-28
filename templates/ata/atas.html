@@ -1,11 +1,11 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 <html :class="{ 'theme-dark': dark }" x-data="data()" lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pagina Inicial</title>
+  <title>Página Inicial</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/static/css/tailwind.output.css" />
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -26,16 +26,16 @@
   <div class="w-full p-4">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {% for ata in atas %}
-      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-64">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-auto">
         <div>
-          <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">{{ ata.ano }} - {{ ata.serie }} - {{ ata.turma }}</h2>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-            {% if ata.pdf_url %}
-            <a href="{{ ata.pdf_url }}" target="_blank" class="text-blue-500 hover:underline">Ver PDF</a>
-            {% else %}
-            Não disponível
-            {% endif %}
-          </p>
+          <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
+            {{ ata.ano }} - {{ ata.serie }} - {{ ata.turma }}
+          </h2>
+          <div class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            <a href="{% url 'ver_arquivos_ata' ata.id %}" class="text-blue-500 hover:underline block mb-2">
+              Ver todos os arquivos
+            </a>
+          </div>
         </div>
         <div class="flex justify-between mt-auto">
           <a href="{% url 'edit_ata' ata.id %}">

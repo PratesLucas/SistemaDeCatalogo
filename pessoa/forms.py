@@ -3,15 +3,12 @@ from django import forms
 from django.forms import ModelForm, TextInput
 
 class PessoaForm(ModelForm):
-
-    class Meta():
+    class Meta:
         model = Pessoa
-        fields = ['nome', 'cpf', 'idade', 'rg']
+        fields = ['nome', 'cpf', 'pdf']
         widgets = {
-                'nome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite seu nome'}),
-                'cpf': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite seu CPF'}),
-                'idade': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Digite sua idade'}), 
-                'rg': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite seu RG'}),
+            'nome': TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o nome'}),
+            'cpf': TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite o CPF (apenas números)'}),
         }
 
 class LoginForm(forms.Form):

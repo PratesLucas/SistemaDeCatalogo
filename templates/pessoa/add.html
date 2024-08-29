@@ -26,7 +26,7 @@
   <div class="right-login">
     <div class="card-login">
       <h1>CADASTRO</h1>
-      <form action="/add/" method="post">
+      <form action="/add/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
         <input type="submit" value="Salvar">

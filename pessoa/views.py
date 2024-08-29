@@ -1,9 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from pessoa.forms import PessoaForm
-from .models import Pessoa
+from .models import ArquivoPDF, Pessoa
 
 @login_required
 def index(request):
@@ -28,18 +28,16 @@ def details(request, pessoa_id):
 
 @login_required
 def add(request):
-
-    if request.method == "POST":
-        form = PessoaForm(request.POST)
-
+    if request.method == 'POST':
+        form = PessoaForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-
-            return HttpResponseRedirect('/pessoa/')
+            pessoa = form.save()
+            ArquivoPDF.objects.create(pessoa=pessoa, pdf=form.cleaned_data['pdf'])
+            return redirect('/pessoa/', pessoa_id=pessoa.id)
     else:
         form = PessoaForm()
-
-    return render(request, 'pessoa/add.html', {'form' : form})
+    
+    return render(request, 'pessoa/add.html', {'form': form})
 
 @login_required
 def edit(request, pessoa_id):

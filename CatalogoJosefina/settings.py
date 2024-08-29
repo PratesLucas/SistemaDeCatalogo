@@ -152,6 +152,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 LOGIN_REDIRECT_URL = '/pessoa/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 

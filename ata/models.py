@@ -10,8 +10,9 @@ class Atas(models.Model):
         return f"Ata {self.ano} - {self.serie} - {self.turma}"
 
 class ArquivoPDF(models.Model):
-    ata = models.ForeignKey(Atas, related_name='pdfs', on_delete=models.CASCADE)
-    pdf = models.FileField(upload_to='path_to_save_pdfs/')
+    ata = models.ForeignKey(Atas, on_delete=models.CASCADE)
+    pdf = models.FileField(upload_to='pdfs/')
+    nome = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return f"PDF {self.ata.ano} - {self.ata.serie} - {self.ata.turma}"
+        return self.nome if self.nome else f'PDF {self.id}'

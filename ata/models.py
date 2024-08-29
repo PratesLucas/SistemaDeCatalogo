@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Atas(models.Model):
     ano = models.IntegerField()
     serie = models.CharField(max_length=50)
@@ -8,6 +9,7 @@ class Atas(models.Model):
 
     def __str__(self):
         return f"Ata {self.ano} - {self.serie} - {self.turma}"
+
 
 class ArquivoPDF(models.Model):
     ata = models.ForeignKey(Atas, on_delete=models.CASCADE)

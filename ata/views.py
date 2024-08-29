@@ -46,7 +46,7 @@ def edit_ata_view(request, ata_id):
     else:
         form = AtasForm(instance=ata)
     
-    template = loader.get_template('ata/cadastro_ata.html')
+    template = loader.get_template('ata/editar_ata.html')
     context = {'form': form}
 
     return HttpResponse(template.render(context, request))

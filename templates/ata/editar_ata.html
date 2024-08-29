@@ -9,16 +9,29 @@
 <head>
     <title>Editar Ata</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'img/logo_josefina.png' %}">
 </head>
 
 <body>
-    <h1>Editar Ata</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit">Salvar</button>
-    </form>
-    <a href="{% url 'listagem_ata' %}">Voltar à lista de atas</a>
+    <div class="w-full p-4">
+        <div class="card-login">
+            <h1 class="title-large text-gray-800 dark:text-gray-200 mb-4"
+                style="font-size: 2.5rem; margin-top: -4px; font-family: 'Ubuntu', sans-serif;">
+                Editar Ata
+            </h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="shadow-md px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple mb-6">Salvar</button>
+            </form>
+            <a href="{% url 'atas' %}" class="shadow-md px-4 py-2 text-sm font-small leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Voltar à lista de atas</a>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'pessoa',
     'ata',
     'crispy_forms',
-    'crispy_bootstrap5',
+    'crispy_tailwind',
 ]
 
 MIDDLEWARE = [
@@ -83,11 +83,6 @@ WSGI_APPLICATION = 'CatalogoJosefina.wsgi.application'
 #     messages.WARNING: 'warning',
 #     messages.ERROR: 'danger',
 # }
-
-# AUTHENTICATION_BACKENDS = (
-#     'django.contrib.auth.backends.ModelBackend',
-#     'pessoa.backends.EmailBackend',
-# )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -158,5 +153,5 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 LOGIN_REDIRECT_URL = '/pessoa/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
-# CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"

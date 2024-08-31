@@ -5,15 +5,28 @@ from django.contrib import messages
 from ata.forms import ArquivoPDFForm, AtasForm
 from ata.models import ArquivoPDF, Atas
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 @login_required
 def atas_view(request):
     atas = Atas.objects.all()
+    
+    search = request.GET.get("search", None)
+    if search is not None:
+        if search:
+            atas = atas.filter(
+                Q(ano__icontains=search) |
+                Q(serie__icontains=search) |
+                Q(turma__icontains=search) |
+                Q(pdf__icontains=search)
+            )
+    
     for ata in atas:
         if not ata.pdf or not ata.pdf.name:
             ata.pdf_url = None
         else:
             ata.pdf_url = ata.pdf.url
+    
     return render(request, 'ata/atas.html', {'atas': atas})
 
 @login_required

@@ -4,18 +4,27 @@ from django.template import loader
 from django.contrib.auth.decorators import login_required
 from pessoa.forms import PessoaForm
 from .models import ArquivoPDF, Pessoa
+from django.db.models import Q
 
 @login_required
 def index(request):
-    if request.GET:
-        dic = {}
+    pessoas = Pessoa.objects.all()
+    # if request.GET:
+    #     dic = {}
 
-        for chave, valor in request.GET.lists():
-            dic.update({chave + "__contains": valor[0]})
+    #     for chave, valor in request.GET.lists():
+    #         dic.update({chave + "__contains": valor[0]})
 
-        pessoas = Pessoa.objects.all().filter(**dic)
-    else:
-        pessoas = Pessoa.objects.all()
+    #     pessoas.filter(**dic)
+        
+    search = request.GET.get("search", None)
+    if search is not None:
+        if search:
+            pessoas = pessoas.filter(
+                Q(nome__icontains=search) |
+                Q(cpf__icontains=search) |
+                Q(pdf__icontains=search)
+            )
 
     return render(request, 'pessoa/listagem.html', {'pessoas': pessoas})
 

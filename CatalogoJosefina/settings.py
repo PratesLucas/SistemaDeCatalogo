@@ -92,16 +92,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "josefinadatabase",
-        "USER": "adminjosefinauser",
-        "PASSWORD": "#Cpm@Admin!1705cj",
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

@@ -37,9 +37,12 @@ def listusers(request):
 
 @has_group("SECRETARIO")
 def deleteuser(request, id):
-    Usuario.objects.filter(id=id).first().delete()
+    user = Usuario.objects.filter(id=id).first()
     
-    redirect("list_users")
+    if user: 
+        user.delete()
+    
+    return redirect("list_users")
 
 
 @has_group("SECRETARIO")
@@ -50,16 +53,17 @@ def edituser(request, id):
         raise ObjectDoesNotExist
         
     if request.method == 'POST':
-        form =  UsuarioForm(request.POST, instance=user)
+        form = UsuarioForm(request.POST, instance=user)
         if form.is_valid():
             user = form.save()
             
             tipo_user = form.cleaned_data['tipo_user']
-            group = Group.objects.get_or_create(name=tipo_user)
+            group, _ = Group.objects.get_or_create(name=tipo_user)
             user.groups.add(group)
             
-            return HttpResponseRedirect('/pessoa/')
+            return redirect('list_users')
+        else:
+            return render(request, "form.html", {"form": form, 'form_title': 'Cadastrar novo usuário'})
     else:
-        form = UsuarioForm()
-        return render(request, "form.html", {"form" : form, 'form_title': 'Cadastrar novo usuário'})
-
+        form = UsuarioForm(instance=user)
+        return render(request, "form.html", {"form": form, 'form_title': 'Cadastrar novo usuário'})

@@ -84,7 +84,7 @@
                         {% for user in users %}
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-6 py-4 text-center">{{ user.id }}</td>
-                            <td class="px-6 py-4 text-center">{{ user.nome }}</td>
+                            <td class="px-6 py-4 text-center">{{ user.username }}</td>
                             <td class="cpf px-6 py-4 text-center">{{ user.cpf }}</td>
                             <td class="cpf px-6 py-4 text-center">{{ user.email }}</td>
                             <td class="px-6 py-4 text-center">
@@ -103,7 +103,7 @@
                                             </button>
                                         </a>
                                         <form action="{% url 'delete_user' user.id %}" method="post" class="d-inline"
-                                            onsubmit="return confirmRemoval('{{ user.nome|escapejs }}');">
+                                            onsubmit="return confirmRemoval('{{ user.username|escapejs }}');">
                                             {% csrf_token %}
                                             <button
                                                 class="flex items-center justify-center p-2 text-purple-600 dark:text-gray-400 hover:text-purple-800 dark:hover:text-gray-200"

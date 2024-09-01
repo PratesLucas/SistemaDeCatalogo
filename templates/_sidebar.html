@@ -7,7 +7,7 @@
     <title>Catálogo Josefina</title>
 </head>
 <body>
-<div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+<div class="flex min-h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
     <!-- Desktop sidebar -->
     <aside class="z-20 hidden w-64 overflow-y-auto bg-white shadow-md dark:bg-gray-800 md:block flex-shrink-0">
         <div class="py-4 text-gray-500 dark:text-gray-400">
@@ -52,9 +52,11 @@
                         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <a class="w-full" href="{% url 'read' %}">Visualizar Alunos</a>
                         </li>
-                        <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="{% url 'create' %}">Cadastrar Novo Aluno</a>
-                        </li>
+                        {% if "DIRETOR" in request.user.groups.all.values_list.0 %}
+                            <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <a class="w-full" href="{% url 'create' %}">Cadastrar Novo Aluno</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="relative px-6 py-3">
@@ -78,11 +80,43 @@
                         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <a class="w-full" href="{% url 'atas' %}">Visualizar Atas</a>
                         </li>
-                        <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="{% url 'cadastro_ata' %}">Adicionar Nova Ata</a>
-                        </li>
+                        {% if "DIRETOR" in request.user.groups.all.values_list.0 %}
+                            <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <a class="w-full" href="{% url 'cadastro_ata' %}">Adicionar Nova Ata</a>
+                            </li>
+                        {% endif %}
                     </ul>
+                    
                 </li>
+                {% if "DIRETOR" in request.user.groups.all.values_list.0 %}
+                    <li class="relative px-6 py-3">
+                        <a href="">
+                            <button
+                                class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                                aria-haspopup="true">
+                                <span class="inline-flex items-center">
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path
+                                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                        </path>
+                                    </svg>
+                                    <span class="ml-4">Usuários</span>
+                                </span>
+                            </button>
+                        </a>
+                        <ul class="p-2 mt-2 space-y-2 text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
+                            aria-label="submenu">
+                            <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <a class="w-full" href="{% url "list_users" %}">Visualizar Usuários</a>
+                            </li>
+                            {% comment %} {% url 'users' %} {% endcomment %}
+                            <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                                <a class="w-full" href="{% url 'adduser' %}">Cadastrar novo usuário</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
             </ul>
             
         </div>

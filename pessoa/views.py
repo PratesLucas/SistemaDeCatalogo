@@ -1,21 +1,21 @@
+from email.headerregistry import Group
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.contrib.auth.decorators import login_required
+from accounts.decorators import has_group
 from pessoa.forms import PessoaForm
 from .models import ArquivoPDF, Pessoa
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 @login_required
 def index(request):
+    if User.objects.all().count() == 1:
+        gp = Group.objects.get_or_create(name="DIRETOR")
+        request.user.groups.add(gp)
+    
     pessoas = Pessoa.objects.all()
-    # if request.GET:
-    #     dic = {}
-
-    #     for chave, valor in request.GET.lists():
-    #         dic.update({chave + "__contains": valor[0]})
-
-    #     pessoas.filter(**dic)
         
     search = request.GET.get("search", None)
     if search is not None:
@@ -26,7 +26,7 @@ def index(request):
                 Q(pdf__icontains=search)
             )
 
-    return render(request, 'pessoa/listagem.html', {'pessoas': pessoas})
+    return render(request, 'pessoa/listagem.html', {'pessoas': pessoas, 'search': search})
 
 @login_required
 def details(request, pessoa_id):
@@ -35,7 +35,7 @@ def details(request, pessoa_id):
 
     return render(request, "pessoa/detalhes.html", {'pessoa' : pessoa})
 
-@login_required
+@has_group("DIRETOR")
 def add(request):
     if request.method == 'POST':
         form = PessoaForm(request.POST, request.FILES)
@@ -48,7 +48,7 @@ def add(request):
     
     return render(request, 'pessoa/add.html', {'form': form})
 
-@login_required
+@has_group("DIRETOR")
 def edit(request, pessoa_id):
 
     pessoa = Pessoa.objects.get(pk = pessoa_id)
@@ -65,9 +65,8 @@ def edit(request, pessoa_id):
 
     return render(request, 'pessoa/edit.html', {'form' : form})
 
-@login_required
+@has_group("DIRETOR")
 def remove(request, pessoa_id):
-
     Pessoa.objects.get(pk = pessoa_id).delete()
 
     return HttpResponseRedirect('/pessoa/')

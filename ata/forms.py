@@ -10,8 +10,8 @@ class AtasForm(ModelForm):
         fields = ['ano', 'serie', 'turma']
         widgets = {
             'ano': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ano'}),
-            'serie': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Série'}),
-            'turma': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Turma'}),
+            'serie': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Série'}),
+            'turma': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Turma'}),
         }
         labels = {
             'ano': 'Ano:',

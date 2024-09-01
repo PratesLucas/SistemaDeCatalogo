@@ -2,10 +2,13 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
+from accounts.decorators import has_group
+from ata.filters import AtasFilter
 from ata.forms import ArquivoPDFForm, AtasForm
 from ata.models import ArquivoPDF, Atas
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+
 
 @login_required
 def atas_view(request):
@@ -21,15 +24,19 @@ def atas_view(request):
                 Q(pdf__icontains=search)
             )
     
+    atas_filter = AtasFilter(request.GET, queryset=atas)
+    atas = atas_filter.qs
+    
     for ata in atas:
         if not ata.pdf or not ata.pdf.name:
             ata.pdf_url = None
         else:
             ata.pdf_url = ata.pdf.url
     
-    return render(request, 'ata/atas.html', {'atas': atas})
+    return render(request, 'ata/atas.html', {'atas': atas, 'filter': atas_filter, 'search': search})
 
-@login_required
+
+@has_group("DIRETOR")
 def cadastro_ata_view(request):
 
     if request.method == "POST":
@@ -47,7 +54,8 @@ def cadastro_ata_view(request):
 
     return HttpResponse(template.render(context, request))
 
-@login_required
+
+@has_group("DIRETOR")
 def edit_ata_view(request, ata_id):
     ata = get_object_or_404(Atas, id=ata_id)
 
@@ -65,14 +73,12 @@ def edit_ata_view(request, ata_id):
     return HttpResponse(template.render(context, request))
 
 
-
-@login_required
+@has_group("DIRETOR")
 def remove_ata_view(request, ata_id):
-
-    ata = Atas.objects.get(pk = ata_id)
-    ata.delete()
+    Atas.objects.get(pk = ata_id).delete()
 
     return HttpResponseRedirect('/ata/atas/')
+
 
 @login_required
 def ver_arquivos_ata(request, ata_id):
@@ -81,7 +87,7 @@ def ver_arquivos_ata(request, ata_id):
     return render(request, 'ata/ver_arquivos_ata.html', {'pdfs': pdfs, 'ata': ata})
 
 
-@login_required
+@has_group("DIRETOR")
 def upload_arquivo_pdf(request, ata_id):
     ata = Atas.objects.get(pk=ata_id)
     if request.method == 'POST':
@@ -95,7 +101,8 @@ def upload_arquivo_pdf(request, ata_id):
         form = ArquivoPDFForm()
     return render(request, 'ata/ver_arquivos_ata.html', {'form': form, 'ata': ata})
 
-@login_required
+
+@has_group("DIRETOR")
 def editar_arquivo_pdf(request, arquivo_pdf_id):
     arquivo_pdf = get_object_or_404(ArquivoPDF, pk=arquivo_pdf_id)
     if request.method == 'POST':
@@ -107,7 +114,8 @@ def editar_arquivo_pdf(request, arquivo_pdf_id):
         form = ArquivoPDFForm(instance=arquivo_pdf)
     return render(request, 'ata/arquivo/editar_arquivo_pdf.html', {'form': form, 'arquivo_pdf': arquivo_pdf})
 
-@login_required
+
+@has_group("DIRETOR")
 def excluir_arquivo_pdf(request, arquivo_pdf_id):
     arquivo_pdf = get_object_or_404(ArquivoPDF, pk=arquivo_pdf_id)
     ata_id = arquivo_pdf.ata.id

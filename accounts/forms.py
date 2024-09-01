@@ -11,6 +11,11 @@ class UsuarioForm(UserCreationForm):
         label='Confirmação de senha',
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirme sua senha'})
     )
+    
+    tipo_user = forms.ChoiceField(
+        label='Tipo de Usuário',
+        choices=Usuario.TIPO_CHOICES,
+    )
 
     
     class Meta():

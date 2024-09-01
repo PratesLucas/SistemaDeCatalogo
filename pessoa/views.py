@@ -1,4 +1,4 @@
-from email.headerregistry import Group
+from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.template import loader
@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 @login_required
 def index(request):
     if User.objects.all().count() == 1:
-        gp = Group.objects.get_or_create(name="SECRETARIO")
+        gp, _ = Group.objects.get_or_create(name="SECRETARIO")
         request.user.groups.add(gp)
     
     pessoas = Pessoa.objects.all()

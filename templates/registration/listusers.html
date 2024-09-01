@@ -89,7 +89,7 @@
                             <td class="cpf px-6 py-4 text-center">{{ user.email }}</td>
                             <td class="px-6 py-4 text-center">
                                 <div class="flex justify-center space-x-3">
-                                    {% if "DIRETOR" in request.user.groups.all.values_list.0 %}
+                                    {% if "SECRETARIO" in request.user.groups.all.values_list.0 %}
                                         <a href="{% url 'edit_user' user.id %}">
                                             <button
                                                 class="flex items-center justify-center p-2 text-purple-600 dark:text-gray-400 hover:text-purple-800 dark:hover:text-gray-200"

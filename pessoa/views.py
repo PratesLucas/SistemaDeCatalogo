@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 @login_required
 def index(request):
     if User.objects.all().count() == 1:
-        gp = Group.objects.get_or_create(name="DIRETOR")
+        gp = Group.objects.get_or_create(name="SECRETARIO")
         request.user.groups.add(gp)
     
     pessoas = Pessoa.objects.all()
@@ -35,7 +35,7 @@ def details(request, pessoa_id):
 
     return render(request, "pessoa/detalhes.html", {'pessoa' : pessoa})
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def add(request):
     if request.method == 'POST':
         form = PessoaForm(request.POST, request.FILES)
@@ -48,7 +48,7 @@ def add(request):
     
     return render(request, 'pessoa/add.html', {'form': form})
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def edit(request, pessoa_id):
 
     pessoa = Pessoa.objects.get(pk = pessoa_id)
@@ -65,7 +65,7 @@ def edit(request, pessoa_id):
 
     return render(request, 'pessoa/edit.html', {'form' : form})
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def remove(request, pessoa_id):
     Pessoa.objects.get(pk = pessoa_id).delete()
 

@@ -36,7 +36,7 @@ def atas_view(request):
     return render(request, 'ata/atas.html', {'atas': atas, 'filter': atas_filter, 'search': search})
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def cadastro_ata_view(request):
 
     if request.method == "POST":
@@ -55,7 +55,7 @@ def cadastro_ata_view(request):
     return HttpResponse(template.render(context, request))
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def edit_ata_view(request, ata_id):
     ata = get_object_or_404(Atas, id=ata_id)
 
@@ -73,7 +73,7 @@ def edit_ata_view(request, ata_id):
     return HttpResponse(template.render(context, request))
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def remove_ata_view(request, ata_id):
     Atas.objects.get(pk = ata_id).delete()
 
@@ -87,7 +87,7 @@ def ver_arquivos_ata(request, ata_id):
     return render(request, 'ata/ver_arquivos_ata.html', {'pdfs': pdfs, 'ata': ata})
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def upload_arquivo_pdf(request, ata_id):
     ata = Atas.objects.get(pk=ata_id)
     if request.method == 'POST':
@@ -102,7 +102,7 @@ def upload_arquivo_pdf(request, ata_id):
     return render(request, 'ata/ver_arquivos_ata.html', {'form': form, 'ata': ata})
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def editar_arquivo_pdf(request, arquivo_pdf_id):
     arquivo_pdf = get_object_or_404(ArquivoPDF, pk=arquivo_pdf_id)
     if request.method == 'POST':
@@ -115,7 +115,7 @@ def editar_arquivo_pdf(request, arquivo_pdf_id):
     return render(request, 'ata/arquivo/editar_arquivo_pdf.html', {'form': form, 'arquivo_pdf': arquivo_pdf})
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def excluir_arquivo_pdf(request, arquivo_pdf_id):
     arquivo_pdf = get_object_or_404(ArquivoPDF, pk=arquivo_pdf_id)
     ata_id = arquivo_pdf.ata.id

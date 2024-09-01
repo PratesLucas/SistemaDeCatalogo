@@ -9,7 +9,7 @@ from accounts.forms import UsuarioForm
 from accounts.models import Usuario
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def createuser(request):
     if request.method == 'POST':
         form = UsuarioForm(request.POST)
@@ -28,21 +28,21 @@ def createuser(request):
 
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def listusers(request):
     users = Usuario.objects.all()
     
     return render(request, "registration/listusers.html", {"users" : users})
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def deleteuser(request, id):
     Usuario.objects.filter(id=id).first().delete()
     
     redirect("list_users")
 
 
-@has_group("DIRETOR")
+@has_group("SECRETARIO")
 def edituser(request, id):
     user = Usuario.objects.filter(id=id).first()
     

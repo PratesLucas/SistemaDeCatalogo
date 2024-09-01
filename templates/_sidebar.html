@@ -52,7 +52,7 @@
                         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <a class="w-full" href="{% url 'read' %}">Visualizar Alunos</a>
                         </li>
-                        {% if "DIRETOR" in request.user.groups.all.values_list.0 %}
+                        {% if "SECRETARIO" in request.user.groups.all.values_list.0 %}
                             <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                                 <a class="w-full" href="{% url 'create' %}">Cadastrar Novo Aluno</a>
                             </li>
@@ -80,7 +80,7 @@
                         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                             <a class="w-full" href="{% url 'atas' %}">Visualizar Atas</a>
                         </li>
-                        {% if "DIRETOR" in request.user.groups.all.values_list.0 %}
+                        {% if "SECRETARIO" in request.user.groups.all.values_list.0 %}
                             <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                                 <a class="w-full" href="{% url 'cadastro_ata' %}">Adicionar Nova Ata</a>
                             </li>
@@ -88,7 +88,7 @@
                     </ul>
                     
                 </li>
-                {% if "DIRETOR" in request.user.groups.all.values_list.0 %}
+                {% if "SECRETARIO" in request.user.groups.all.values_list.0 %}
                     <li class="relative px-6 py-3">
                         <a href="">
                             <button

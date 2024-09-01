@@ -113,7 +113,7 @@
               </svg>
             </button>
           </a>
-          {% if "DIRETOR" in request.user.groups.all.values_list.0 %}
+          {% if "SECRETARIO" in request.user.groups.all.values_list.0 %}
             <a href="{% url 'edit_ata' ata.id %}" class="flex-1">
               <button
                 class="flex items-center justify-center p-2 text-purple-600 dark:text-gray-400 hover:text-purple-800 dark:hover:text-gray-200"

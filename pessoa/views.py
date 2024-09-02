@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.template import loader
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import has_group
 from pessoa.forms import PessoaForm
@@ -11,12 +10,14 @@ from django.contrib.auth.models import User
 
 @login_required
 def index(request):
+    # Adiciona o grupo SECRETARIO ao primeiro usuário se ele ainda não estiver no grupo
     if User.objects.all().count() == 1:
         gp, _ = Group.objects.get_or_create(name="SECRETARIO")
         request.user.groups.add(gp)
     
-    pessoas = Pessoa.objects.all()
-        
+    # Obtém todos os registros de Pessoa e ordena alfabeticamente pelo nome
+    pessoas = Pessoa.objects.all().order_by('nome')
+    
     search = request.GET.get("search", None)
     if search is not None:
         if search:
@@ -30,10 +31,8 @@ def index(request):
 
 @login_required
 def details(request, pessoa_id):
-
-    pessoa = Pessoa.objects.get(pk = pessoa_id)
-
-    return render(request, "pessoa/detalhes.html", {'pessoa' : pessoa})
+    pessoa = Pessoa.objects.get(pk=pessoa_id)
+    return render(request, "pessoa/detalhes.html", {'pessoa': pessoa})
 
 @has_group("SECRETARIO")
 def add(request):
@@ -50,23 +49,19 @@ def add(request):
 
 @has_group("SECRETARIO")
 def edit(request, pessoa_id):
-
-    pessoa = Pessoa.objects.get(pk = pessoa_id)
+    pessoa = Pessoa.objects.get(pk=pessoa_id)
 
     if request.method == "POST":
         form = PessoaForm(request.POST, instance=pessoa)
-
         if form.is_valid():
             form.save()
-
             return HttpResponseRedirect('/pessoa/')
     else:
         form = PessoaForm(instance=pessoa)
 
-    return render(request, 'pessoa/edit.html', {'form' : form})
+    return render(request, 'pessoa/edit.html', {'form': form})
 
 @has_group("SECRETARIO")
 def remove(request, pessoa_id):
-    Pessoa.objects.get(pk = pessoa_id).delete()
-
+    Pessoa.objects.get(pk=pessoa_id).delete()
     return HttpResponseRedirect('/pessoa/')

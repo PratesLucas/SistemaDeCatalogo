@@ -34,12 +34,10 @@
 
 <body>
     <div style="margin-top: 15px;" class="flex justify-center">
-        <form
-          class="relative w-full max-w-xl mr-6 focus-within:text-purple-500"
-        >
+        <form class="relative w-full max-w-xl mr-6 focus-within:text-blue-500">
           <button class="absolute inset-y-0 flex items-center pl-2">
             <svg
-              class="w-4 h-4"
+              class="w-4 h-4 text-blue-600"
               aria-hidden="true"
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -54,7 +52,7 @@
           <input
             name="search"
             value="{{ search|default:"" }}"
-            class="shadow-md w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+            class="shadow-md w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-blue-300 focus:outline-none focus:shadow-outline-blue form-input"
             type="text"
             placeholder="Pesquisar"
             aria-label="Search"
@@ -65,7 +63,7 @@
         
         <h1 class="title-large text-gray-800 dark:text-gray-200 mb-4"
             style="font-size: 2.5rem; margin-top: -4px; font-family: 'Ubuntu', sans-serif;">
-            Alunos cadastrados
+            Sejam Bem-Vindos 
         </h1>
 
         <div class="w-full max-w-6xl overflow-hidden rounded-lg shadow-md">
@@ -88,8 +86,7 @@
                             <td class="cpf px-6 py-4 text-center">{{ pessoa.cpf }}</td>
                             <td class="px-6 py-4 text-center font-semibold">
                                 {% if pessoa.pdf %}
-                                <a href="{{ pessoa.pdf.url }}" target="_blank" class="text-blue-500 hover:underline">Ver
-                                    PDF</a>
+                                <a href="{{ pessoa.pdf.url }}" target="_blank" class="text-blue-500 hover:underline">Ver PDF</a>
                                 {% else %}
                                 Não disponível
                                 {% endif %}
@@ -98,7 +95,7 @@
                                 <div class="flex justify-center space-x-3">
                                     <a href="{% url 'details' pessoa.id %}">
                                         <button
-                                            class="flex items-center justify-center p-2 text-purple-600 dark:text-gray-400 hover:text-purple-800 dark:hover:text-gray-200"
+                                            class="flex items-center justify-center p-2 text-blue-600 hover:text-blue-800"
                                             aria-label="View">
                                             <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 512 512">
@@ -113,7 +110,7 @@
                                     {% if "SECRETARIO" in request.user.groups.all.values_list.0 %}
                                         <a href="{% url 'refresh' pessoa.id %}">
                                             <button
-                                                class="flex items-center justify-center p-2 text-purple-600 dark:text-gray-400 hover:text-purple-800 dark:hover:text-gray-200"
+                                                class="flex items-center justify-center p-2 text-blue-600 hover:text-blue-800"
                                                 aria-label="Refresh">
                                                 <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20">
@@ -127,7 +124,7 @@
                                             onsubmit="return confirmRemoval('{{ pessoa.nome|escapejs }}');">
                                             {% csrf_token %}
                                             <button
-                                                class="flex items-center justify-center p-2 text-purple-600 dark:text-gray-400 hover:text-purple-800 dark:hover:text-gray-200"
+                                                class="flex items-center justify-center p-2 text-blue-600 hover:text-blue-800"
                                                 aria-label="Delete">
                                                 <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20">

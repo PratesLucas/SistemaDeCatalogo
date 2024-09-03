@@ -50,14 +50,21 @@
                     <ul class="p-2 mt-2 space-y-2 text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                         aria-label="submenu">
                         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="{% url 'read' %}">Visualizar Alunos</a>
+                            <a class="w-full" href="{% url 'read' "ALUNO" %}">Visualizar Alunos</a>
+                        </li>
+                        <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                            <a class="w-full" href="{% url 'read' "PROFESSOR" %}">Visualizar Professores</a>
                         </li>
                         {% if "SECRETARIO" in request.user.groups.all.values_list.0 %}
                             <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="{% url 'create' %}">Cadastrar Novo Aluno</a>
+                                <a class="w-full" href="{% url 'create' %}">Cadastrar Novo Aluno/Professor</a>
                             </li>
                         {% endif %}
                     </ul>
+                </li>
+ 
+
+            
                 </li>
                 <li class="relative px-6 py-3">
                     <a href="{% url 'atas' %}">
@@ -112,7 +119,7 @@
                             </li>
                             {% comment %} {% url 'users' %} {% endcomment %}
                             <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                <a class="w-full" href="{% url 'adduser' %}">Cadastrar novo usuário</a>
+                                <a class="w-full" href="{% url 'adduser' %}">Cadastrar Novo Usuário</a>
                             </li>
                         </ul>
                     </li>

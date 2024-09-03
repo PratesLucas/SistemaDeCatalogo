@@ -29,31 +29,96 @@
             });
         });
     </script>
-
 </head>
 
-<body>
-    <div class="w-full p-4">
-        <div class="card-login">
-            <h1 class="title-large text-gray-800 dark:text-gray-200 mb-4"
-            style="font-size: 2.5rem; margin-top: -4px; font-family: 'Ubuntu', sans-serif;">
-            Detalhes de {{pessoa.nome}}
-            </h1>
-            <div class="items-center justify-center p-4 w-full">
-                <ul class="list-group">
-                    <li class="font-semibold list-group-item list-group-item-primary">ID: {{pessoa.id}}</li>
-                    <li class="font-semibold list-group-item list-group-item-primary">NOME: {{pessoa.nome}}</li>
-                    <li class="cpf font-semibold list-group-item list-group-item-primary">CPF: {{pessoa.cpf}}</li>
-                    <li class="font-semibold list-group-item list-group-item-primary">PDF: {{pessoa.pdf}}</li> <br>
-                    <a href="/pessoa/">
-                        <button class="shadow-md px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-                            Voltar
-                        </button>
-                    </a>
-                </ul>
+<body class="bg-gray-100">
+    <div class="max-w-4xl mx-auto p-6">
+    <div class="grid grid-cols-1 {% if pessoa.endereco %}md:grid-cols-2{% else %}md:grid-cols-1{% endif %} gap-6">
+        <!-- Quadro de detalhes da pessoa -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Detalhes de {{ pessoa.nome }}</h1>
+            <ul class="divide-y divide-gray-200">
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">ID:</span>
+                    <span class="text-gray-800">{{ pessoa.id }}</span>
+                </li>
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">Nome:</span>
+                    <span class="text-gray-800">{{ pessoa.nome }}</span>
+                </li>
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">CPF:</span>
+                    <span class="cpf text-gray-800">{{ pessoa.cpf }}</span>
+                </li>
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">PDF:</span>
+                    <a href="{{ pessoa.pdf.url }}" class="text-blue-600 hover:underline">Ver Documento</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Quadro de endereço -->
+        {% if pessoa.endereco %}
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Endereço</h2>
+            <ul class="divide-y divide-gray-200">
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">Rua:</span>
+                    <span class="text-gray-800">{{ pessoa.endereco.rua }}</span>
+                </li>
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">Bairro:</span>
+                    <span class="text-gray-800">{{ pessoa.endereco.bairro }}</span>
+                </li>
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">Número:</span>
+                    <span class="text-gray-800">{{ pessoa.endereco.num }}</span>
+                </li>
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">Complemento:</span>
+                    <span class="text-gray-800">{{ pessoa.endereco.complemento }}</span>
+                </li>
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">Cidade:</span>
+                    <span class="text-gray-800">{{ pessoa.endereco.cidade }}</span>
+                </li>
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">CEP:</span>
+                    <span class="text-gray-800">{{ pessoa.endereco.cep }}</span>
+                </li>
+                <li class="py-4 flex justify-between">
+                    <span class="font-semibold text-gray-600">Estado:</span>
+                    <span class="text-gray-800">{{ pessoa.endereco.estado }}</span>
+                </li>
+            </ul>
+            <div class="text-center mt-6">
+                <a href="{% url 'edit_endereco' pessoa.id %}">
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-200">
+                        Editar
+                    </button>
+                </a>
+            </div>
+            <div class="text-center mt-6">
+                <a href="{% url 'delete_endereco' pessoa.id %}">
+                    <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-200">
+                        Deletar
+                    </button>
+                </a>
             </div>
         </div>
+        {% endif %}
     </div>
+
+    <!-- Botão de voltar -->
+    <div class="text-center mt-6">
+        <a href="{% url 'read' %}">
+            <button class="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-200">
+                Voltar
+            </button>
+        </a>
+    </div>
+</div>
+
 </body>
 
 </html>

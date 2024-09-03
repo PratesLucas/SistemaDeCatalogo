@@ -7,7 +7,7 @@ from django.contrib.auth.hashers import make_password
 class UsuarioForm(forms.ModelForm):
     password2 = forms.CharField(
         label='Confirmação de senha',
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Confirme sua senha'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300', 'placeholder': 'Confirme sua senha'}),
         required=True
     )
     
@@ -21,11 +21,11 @@ class UsuarioForm(forms.ModelForm):
         fields = ['username', 'cpf', 'email', 'tipo_user', 'password']
         
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite seu usuário'}),
-            'cpf': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Digite seu CPF'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Digite seu email'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Digite sua senha'}),
-            'tipo_user': forms.Select(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300', 'placeholder': 'Digite seu usuário'}),
+            'cpf': forms.TextInput(attrs={'class': 'form-control dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300', 'placeholder': 'Digite seu CPF'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300', 'placeholder': 'Digite seu email'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300', 'placeholder': 'Digite sua senha'}),
+            'tipo_user': forms.Select(attrs={'class': 'form-control dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300'}),
         }
 
     def clean_username(self):

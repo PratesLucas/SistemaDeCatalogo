@@ -98,3 +98,4 @@ class EnderecoForm(forms.ModelForm):
             'cep': 'CEP:',
             'estado': 'Estado:',
         }
+
